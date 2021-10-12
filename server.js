@@ -70,4 +70,4 @@ server.delete('/api/user/:id', (req, res) => {
 
 server.listen(3000, () => {
     console.log('The server is running!');
-});
+});  
