@@ -22,11 +22,11 @@ server.get("/api/user", (req, res) => { // 'api/user' endpoint
     res.json(users);
 })
 
-server.get("/api/user/:id", (req, res) => { // 순서 주의!
+server.get("/api/user/:id", (req, res) => { // Read
     const user = users.find((u) => {
         return u.id === req.params.id;
     });
-    if (user) {
+    if (user) { // user 가 존재한다면
         res.json(user);
     } else {
         res.status(404).json({
@@ -35,12 +35,13 @@ server.get("/api/user/:id", (req, res) => { // 순서 주의!
     }
 });
 
-server.post("/api/user", (req, res) => {
+server.post("/api/user", (req, res) => { // Create
+ //   console.log(req.body);
     users.push(req.body);
     res.json(users);
 })
 
-server.put("/api/user/:id", (req, res) => {
+server.put("/api/user/:id", (req, res) => { // Update
     let foundIndex = users.findIndex(u => u.id === req.params.id);
     if (foundIndex === -1) {
         res.status(404).json({
@@ -56,7 +57,7 @@ server.put("/api/user/:id", (req, res) => {
 });
 
 
-server.delete('/api/user/:id', (req, res) => {
+server.delete('/api/user/:id', (req, res) => { // Delete
     let foundIndex = users.findIndex(u => u.id === req.params.id);
     if (foundIndex === -1) {
         res.status(404).json({
