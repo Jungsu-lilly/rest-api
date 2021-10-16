@@ -5,7 +5,6 @@ server.use(bodyParser.json());
 
 // CRUD (Create, Read, Update, Delete)
 
-
 const users = [{
         id: "matt1235",
         name: "Jungsu",
@@ -16,13 +15,22 @@ const users = [{
         name: 'jenny',
         email: "jenny@daum.net"
     },
+    {
+        id: 'lilmo',
+        name: 'lilly',
+        email: 'lilmo@gamil.com'
+    }
 ];
 
+
+// 유저 목록 조회
 server.get("/api/user", (req, res) => { // 'api/user' endpoint
     res.json(users);
 })
 
-server.get("/api/user/:id", (req, res) => { // Read
+
+// Read (해당 유저 정보 조회)
+server.get("/api/user/:id", (req, res) => {
     const user = users.find((u) => {
         return u.id === req.params.id;
     });
@@ -35,13 +43,17 @@ server.get("/api/user/:id", (req, res) => { // Read
     }
 });
 
-server.post("/api/user", (req, res) => { // Create
+
+// 유저 정보 생성.
+server.post("/api/user", (req, res) => {
  //   console.log(req.body);
     users.push(req.body);
     res.json(users);
 })
 
-server.put("/api/user/:id", (req, res) => { // Update
+
+// 유저 정보 수정
+server.put("/api/user/:id", (req, res) => {
     let foundIndex = users.findIndex(u => u.id === req.params.id);
     if (foundIndex === -1) {
         res.status(404).json({
@@ -57,7 +69,8 @@ server.put("/api/user/:id", (req, res) => { // Update
 });
 
 
-server.delete('/api/user/:id', (req, res) => { // Delete
+// 유저 정보 삭제.
+server.delete('/api/user/:id', (req, res) => {
     let foundIndex = users.findIndex(u => u.id === req.params.id);
     if (foundIndex === -1) {
         res.status(404).json({
